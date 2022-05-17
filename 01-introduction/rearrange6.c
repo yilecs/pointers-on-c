@@ -33,11 +33,6 @@ int read_column_numbers(int columns[], int max) {
         num++;
     }
 
-    if (num % 2 != 0) {
-        puts("Last column number is not paired.");
-        exit(EXIT_FAILURE);
-    }
-
     while ((ch = getchar()) != EOF && ch != '\n') {
         ;
     }
@@ -54,7 +49,13 @@ void rearange(char * output, char const *input, int n_columns, int const columns
     output_col = 0;
 
     for (col = 0; col < n_columns; col += 2) {
-        int nchars = columns[col + 1] - columns[col] + 1;
+        int nchars;
+
+        if (col + 1 < n_columns) {
+            nchars = columns[col + 1] - columns[col] + 1;
+        } else {
+            nchars = len - columns[col];
+        }
 
         if (columns[col] >= len || output_col == MAX_INPUT - 1)
             break;
